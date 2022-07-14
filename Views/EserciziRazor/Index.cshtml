@@ -1,35 +1,115 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<h1 class="mb-5">Esercizi Razor</h1>
 
-    List<Pizza> pizzas = new List<Pizza>();
+@*1. Dichiarare una variabile valorizzandola con il nostro nome.
+     Dichiarare un'altra variabile valorizzandola con il nostro cognome.
+     Stampare il nostro nome e cognome all'interno di un tag h2.
+*@
 
-    pizzas.Add(new Pizza(1, "Margherita", "https://i.pinimg.com/564x/ea/c8/83/eac8837f106e55819493c7692e579954.jpg", 5.5f));
-    pizzas.Add(new Pizza(2, "Prosciuttto e funghi", "https://i.pinimg.com/564x/1b/c4/a1/1bc4a11a1380fce99f6ebd97d5c40353.jpg", 6.50f));
-    pizzas.Add(new Pizza(3, "Quattro formaggi", "https://i.pinimg.com/564x/8e/9e/b7/8e9eb7450d570dc17c5a11f7888ddc04.jpg", 6.5f));
-    pizzas.Add(new Pizza(4, "Ortolana", "https://i.pinimg.com/564x/aa/17/52/aa1752b0b4845b2cf364bbdcd574787b.jpg", 7f));
-    pizzas.Add(new Pizza(5, "Salame piccante", "https://i.pinimg.com/236x/91/ed/cd/91edcda5ae837732353db81a0cf42341.jpg", 7f));
-    pizzas.Add(new Pizza(6, "Wurstel e patatine", "https://i.pinimg.com/564x/6d/bf/92/6dbf925414c9224b77e60ba741c8e236.jpg", 6.5f));
-    pizzas.Add(new Pizza(7, "Marinara", "https://i.pinimg.com/564x/81/85/da/8185da224b99448029d182b1c40f0452.jpg", 5f));
-    pizzas.Add(new Pizza(8, "Tonno e cipolla", "https://i.pinimg.com/564x/d3/f6/74/d3f674c43c59377ece5521a6bd3cdf99.jpg", 6.50f));
+@{
+    string name = "Simone";
+    string surname = "Sada";
 }
 
-<div class="text-center">
-    <h1 class="display-4 mb-5">Menu pizze:</h1>
-</div>
+<h2>@name@surname</h2>
 
-<div class="container">
-    <div class="row justify-content-between gy-5">
-        @foreach(Pizza pizza in pizzas)
+
+@*2. Creare una funzione che stampa la somma dei numeri che vanno da 1 a n (con n passato come parametro - n incluso)
+Stampare dentro uno span il risultato.*@
+
+@{
+    int n = 10;
+
+    int PrintNumbers(int n)
+    {
+        int sum = 0;
+
+        for(int x = 1; x <= n; x++)
         {
-            <div class="card" style="width: 18rem; padding: 0;">
-                <img src="@pizza.ImagePath" class="card-img-top card-img" style="min-height: 200px; max-height: 200px; object-fit: cover; object-fit: center;" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">@pizza.Name</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@pizza.Price.ToString("C2")</li>
-                </ul>
-            </div>
-        } 
-    </div>
-</div>
+            sum += x;
+        }
+
+        return sum;
+    }
+}
+
+<span>Somma dei numeri da 1 a @n: @PrintNumbers(@n)</span>
+
+
+@*3. Contare quante volte la lettera a è presente nalla frase "nel mezzo del cammin di nostra vita" e stampare questo valore in pagina*@
+
+@{
+    string stringa = "nel mezzo del cammin di nostra vita";
+    char carattere = 'a';
+
+    int CountChar(string inputString, char inputChar)
+    {
+        int count = 0;
+
+        for(int i = 0; i < inputString.Length; i++)
+        {
+            if(inputString[i] == inputChar)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+
+<p>La stringa "@stringa" contiene @CountChar(@stringa, @carattere) volte il carattere '@carattere'.</p>
+
+
+@*4. Creare una List<int> di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70*@
+
+@{
+    List<int> list = new List<int>();
+
+    int listLength = 20;
+
+    int min = 1;
+    int max = 90;
+
+    Random rnd = new Random();
+
+    for(int i = 0; i < listLength; i++)
+    {
+        list.Add(rnd.Next(min, max+1));
+    }
+
+    list.Sort();
+}
+
+<ul>
+    @foreach(int x in list)
+    {
+        if(x >= 20 && x <= 70)
+        {
+            <li>@x</li>
+        }
+    }
+</ul>
+
+
+@*5. Stampare in pagina la data e l'ora attuale (usando la classe DateTime) con il formato anno-mese-giorno ore:minuti:secondi*@
+
+<p>Data e ora attuale: @DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss")</p>
+
+
+@*6. Partendo dalla data di oggi (usando la classe DateTime) stampare in pagina
+a. la data di 7 giorni fa
+b. che giorno della settimana è oggi (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)
+c. che giorno della settimana sarà nello stesso giorno e mese di oggi ma tra un anno (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)*@
+
+<p>Data di 7 giorni fa: @DateTime.Now.AddDays(-7).ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss")</p>
+<p>Oggi è @DateTime.Now.ToString("dddd")</p>
+
+@{
+    int todayYear = Convert.ToInt32(@DateTime.Now.ToString("yyyy"));
+    int todayMonth = Convert.ToInt32(@DateTime.Now.ToString("MM"));
+    int todayDay = Convert.ToInt32(@DateTime.Now.ToString("dd"));
+
+    DateTime nextYearDate = new DateTime(todayYear+1, todayMonth, todayDay);
+}
+
+<p>L'anno prossimo, nello stesso mese e giorno di oggi, sarà @nextYearDate.ToString("dddd")</p>
