@@ -1,35 +1,4 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-
-    List<Pizza> pizzas = new List<Pizza>();
-
-    pizzas.Add(new Pizza(1, "Margherita", "https://i.pinimg.com/564x/ea/c8/83/eac8837f106e55819493c7692e579954.jpg", 5.5f));
-    pizzas.Add(new Pizza(2, "Prosciuttto e funghi", "https://i.pinimg.com/564x/1b/c4/a1/1bc4a11a1380fce99f6ebd97d5c40353.jpg", 6.50f));
-    pizzas.Add(new Pizza(3, "Quattro formaggi", "https://i.pinimg.com/564x/8e/9e/b7/8e9eb7450d570dc17c5a11f7888ddc04.jpg", 6.5f));
-    pizzas.Add(new Pizza(4, "Ortolana", "https://i.pinimg.com/564x/aa/17/52/aa1752b0b4845b2cf364bbdcd574787b.jpg", 7f));
-    pizzas.Add(new Pizza(5, "Salame piccante", "https://i.pinimg.com/236x/91/ed/cd/91edcda5ae837732353db81a0cf42341.jpg", 7f));
-    pizzas.Add(new Pizza(6, "Wurstel e patatine", "https://i.pinimg.com/564x/6d/bf/92/6dbf925414c9224b77e60ba741c8e236.jpg", 6.5f));
-    pizzas.Add(new Pizza(7, "Marinara", "https://i.pinimg.com/564x/81/85/da/8185da224b99448029d182b1c40f0452.jpg", 5f));
-    pizzas.Add(new Pizza(8, "Tonno e cipolla", "https://i.pinimg.com/564x/d3/f6/74/d3f674c43c59377ece5521a6bd3cdf99.jpg", 6.50f));
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
 }
-
-<div class="text-center">
-    <h1 class="display-4 mb-5">Menu pizze:</h1>
-</div>
-
-<div class="container">
-    <div class="row justify-content-between gy-5">
-        @foreach(Pizza pizza in pizzas)
-        {
-            <div class="card" style="width: 18rem; padding: 0;">
-                <img src="@pizza.ImagePath" class="card-img-top card-img" style="min-height: 200px; max-height: 200px; object-fit: cover; object-fit: center;" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">@pizza.Name</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@pizza.Price.ToString("C2")</li>
-                </ul>
-            </div>
-        } 
-    </div>
-</div>
